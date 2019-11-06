@@ -1,0 +1,10 @@
+version: '3'
+services:
+  minikube:
+    build: ./packages/minikube
+    ports:
+      - "8001:8001"
+  minikube2:
+    build: ./packages/minikube2
+    ports:
+      - "8002:8002"

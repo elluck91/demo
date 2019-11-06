@@ -3,7 +3,7 @@ var http = require('http');
 var handleRequest = function (request, response) {
   console.log('Received request for URL: ' + request.url);
   response.writeHead(200);
-  response.end('Hello World, from minikube2, yea!!');
+  response.end('Hello World, from minikube2!!');
 };
 var www = http.createServer(handleRequest);
-www.listen(8080);
+www.listen(8002);
