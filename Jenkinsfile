@@ -1,8 +1,10 @@
-pipeline {
-    agent any
+pipeline { 
+  agent any
     stages {
-        stage('build matchengine') {
-          docker build -t ljuraszek/minikube ./packages/minikube2/Dockerfile
+        stage('Build') {
+            steps {
+                sh 'docker build -t ljuraszek/my-image ./packages/minikube2/Dockerfile'
+            }
         }
     }
 }
