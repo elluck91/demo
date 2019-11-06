@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build matchengine') {
             when {
-                changeset "**/packages/*"
+                changeset "**/packages/**/*.*"
             }
             steps {
                script {
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('build posttrade') {
             when {
-                changeset "**/packages/*"
+                changeset "**/packages/**/*.*"
             }
             steps {
                 echo 'building post trade'

@@ -7,4 +7,4 @@ var handleRequest = function (request, response) {
 };
 var www = http.createServer(handleRequest);
 www.listen(8000);
-console.log('Server is listening od pont 8000.');
+console.log('Server is listening od port 8000.');
