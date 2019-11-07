@@ -1,5 +1,8 @@
 version: '3'
 services:
+  builder:
+      image: builder
+      build: .
   minikube:
     build: ./packages/minikube
     ports:
