@@ -1,13 +1,15 @@
-version: '3'
+version: "3"
 services:
   builder:
-      image: builder
-      build: .
+    image: builder
+    build: .
   minikube:
     build: ./packages/minikube
+    image: minikube:latest
     ports:
       - "8001:8001"
   minikube2:
-    build: ./packages/minikube2
+    build: ./packages/${repo2}
+    image: minikube2:latest
     ports:
       - "8002:8002"
