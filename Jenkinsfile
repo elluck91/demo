@@ -1,19 +1,25 @@
-pipeline { 
-  agent any
+pipeline {
+    agent any
     stages {
-        stage('Build') {
-            steps {
-                sh 'docker-compose build'
+        stage('checkout'){
+            steps{
+                git branch: 'master', url: 'https://github.com/elluck91/demo.git'
             }
         }
-        stage('List Images') {
+        stage('build minikube') {
+            when {
+                changeset "**/packages/minikube/*.*"
+            }
             steps {
-                sh 'docker-compose images'
+                echo 'building minikube'
             }
         }
-        stage('Results') {
+        stage('build minikube 2') {
+            when {
+                changeset "**/packages/minikube2/*.*"
+            }
             steps {
-                echo 'Done.'
+                echo 'building minikube2'
             }
         }
     }
