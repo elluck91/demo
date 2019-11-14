@@ -3,7 +3,7 @@ built_images = []
 tested_images = []
 
 def build(String project) {
-    sh "docker build -t ${project}:latest ${project}"
+    sh "docker build -t ${project}-${GIT_BRANCH}:latest ${project}"
     echo "docker image ${project} has complete building..."
     built_images.add(project)
 }
@@ -27,7 +27,7 @@ def build_projects(projects) {
 def test_images(images) {
     images.each {
         image ->
-        sh "docker run --rm ${image} npm test"
+        sh "docker run --rm ${image}-${GIT_BRANCH} npm test"
         tested_images.add(image)
     }
 }
@@ -36,13 +36,13 @@ def deploy_images(images) {
     images.each {
         image ->
         sh "kubectl create namespace ${GIT_BRANCH}"
-        sh "kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}"
+        sh "kubectl run ${GIT_BRANCH}-deployment --image=${image}-${GIT_BRANCH} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}"
         sh "kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}"
         url = sh(
             returnStdout: true,
             script: "minikube service ${GIT_BRANCH}-deployment -n ${GIT_BRANCH}"
         ).trim()
-        echo "Access the deployment at: ${url}"
+        echo "Access the deployment at:\n${url}"
     }
 }
 
