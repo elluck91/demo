@@ -32,7 +32,7 @@ def test_images(images) {
         image ->
         sh """
             eval \$(minikube docker-env)
-            docker run --rm ${image} npm test"
+            docker run --rm ${image} npm test
         """
         tested_images.add(image)
     }
