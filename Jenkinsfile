@@ -1,5 +1,6 @@
 changed_projects = ['packages/demo1', 'packages/demo2']
 built_images = []
+tested_images = []
 
 def build(String project) {
     sh "docker build -t ${project}:latest ${project}"
