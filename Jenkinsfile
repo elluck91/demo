@@ -17,7 +17,7 @@ def build_projects(projects) {
         ).trim()
 
         if (!changed_project.equalsIgnoreCase("")) {
-            echo "Project: ${project} will be built"
+            build(project)
         }
     }
 }
