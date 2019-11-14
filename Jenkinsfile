@@ -41,7 +41,7 @@ def deploy_images(images) {
         sh "kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}"
         url = sh(
             returnStdout: true,
-            script: "minikube service ${image}-deployment -n ${GIT_BRANCH}"
+            script: "minikube service ${GIT_BRANCH}-deployment -n ${GIT_BRANCH}"
         ).trim()
         echo "Access the deployment at: ${url}"
     }
