@@ -5,7 +5,7 @@ tested_images = []
 def build(String project) {
     sh "eval \$(minikube docker-env)"
     sh "docker build -t ${project}-${GIT_BRANCH}:latest ${project}"
-    echo "docker images"
+    sh "docker images"
     built_images.add(project + "-" + GIT_BRANCH)
 }
 
