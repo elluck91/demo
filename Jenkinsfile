@@ -16,15 +16,17 @@ pipeline {
 
         // BUILD
         stage('BUILD') {
-            script {
-                projects.each {
-                    project ->
-                    when {
-                        changeset "${project}/*.*"
-                    }
-                    steps {
-                        echo "Building ${project}..."
-                        build(${project})
+            steps {
+                script {
+                    projects.each {
+                        project ->
+                        when {
+                            changeset "${project}/*.*"
+                        }
+                        steps {
+                            echo "Building ${project}..."
+                            build(${project})
+                        }
                     }
                 }
             }
