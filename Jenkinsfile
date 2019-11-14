@@ -1,4 +1,4 @@
-projects = ['./packages/demo1', './packages/demo2']
+projects = ['packages/demo1', 'packages/demo2']
 
 def build(String project) {
     sh "docker build -t ${project}:latest ${project}"
