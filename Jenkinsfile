@@ -30,8 +30,11 @@ def build_projects(projects) {
 def test_images(images) {
     images.each {
         image ->
-        sh "docker run --rm ${image} npm test"
-        tested_images.add(image)
+        sh """
+            eval \$(minikube docker-env)
+            docker run --rm ${image} npm test"
+            tested_images.add(image)
+        """
     }
 }
 
@@ -39,10 +42,10 @@ def deploy_images(images) {
     images.each {
         image ->
         sh """
-        eval \$(minikube docker-env)
-        kubectl create namespace ${GIT_BRANCH}
-        kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}
-        kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}
+            eval \$(minikube docker-env)
+            kubectl create namespace ${GIT_BRANCH}
+            kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}
+            kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}
         """
         url = sh(
             returnStdout: true,
