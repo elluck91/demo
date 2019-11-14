@@ -33,7 +33,7 @@ pipeline {
         // BUILD
         stage('BUILD') {
             steps {
-                build_projects(${projects})
+                build_projects(projects)
             }
         }
     }
