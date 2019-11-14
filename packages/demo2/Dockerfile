@@ -1,4 +1,4 @@
 FROM builder
-EXPOSE 8001
+EXPOSE 9002
 COPY server.js .
 CMD node server.js

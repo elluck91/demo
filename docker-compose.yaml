@@ -3,13 +3,13 @@ services:
   builder:
     image: builder
     build: .
-  minikube:
-    build: ./packages/minikube
-    image: minikube:latest
+  demo1:
+    build: ./packages/demo1
+    image: demo1:latest
     ports:
-      - "8001:8001"
-  minikube2:
-    build: ./packages/${repo2}
-    image: minikube2:latest
+      - "9001:9001"
+  demo2:
+    build: ./packages/demo2
+    image: demo2:latest
     ports:
-      - "8002:8002"
+      - "9002:9002"

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    ljuraszek: demo1-example
+  name: demo1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      ljuraszek: demo1-example
+  template:
+    metadata:
+      labels:
+        ljuraszek: demo1-example
+    spec:
+      containers:
+      - image: demo1
+        name: demo1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9001
