@@ -10,17 +10,14 @@ def build_projects(projects) {
         project ->
         // Check is files in given directory changed between commits
         // NOTE: $GIT_PREVIOUS_COMMIT and $GIT_COMMIT provided by Jenkins GIT Plugin
-        changed = sh(
+        changed_project = sh(
             returnStdout: true,
             script: "git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT} ${project}"
         ).trim()
 
-        echo "$changed"
-        /*
-        if (changed) {
-            build(${project})
+        if (changed_project.equalsIgnoreCase(project)) {
+            echo "${project} needs to be build..."
         }
-        */
     }
 }
 
