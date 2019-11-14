@@ -6,4 +6,3 @@ RUN npm install
 COPY server.js .
 COPY test .
 CMD node server.js
-# comment
