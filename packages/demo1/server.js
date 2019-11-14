@@ -4,7 +4,7 @@ var exports = module.exports = {};
 const PORT = 9001;
 
 app.get('/', function(req, res){
-  res.send('DEMO_1');
+  res.send('DEMO_');
 });
 
 var server = app.listen(PORT, function(){
