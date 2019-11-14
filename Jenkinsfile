@@ -39,7 +39,9 @@ pipeline {
         }
 
         stage('DEPLOY') {
-            echo "\n\nDEPLOYING\n\n"
+            steps {
+                echo "\n\nDEPLOYING\n\n"
+            }
         }
     }
 }
