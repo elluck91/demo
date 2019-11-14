@@ -8,7 +8,7 @@ app.get('/', function(req, res){
 });
 
 var server = app.listen(PORT, function(){
-  console.log(`aMagic is happening on port ${PORT}`);
+  console.log(`Magic is happening on port ${PORT}`);
 });
 
 exports.closeServer = function(){
