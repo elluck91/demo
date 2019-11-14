@@ -1,10 +1,27 @@
+projects = ['packages/demo1', 'packages/demo2', '.']
+
 def build(String project) {
     //sh "docker build -t ${project}:latest ./packages/"
     echo "docker image ${project} has complete building..."
 }
 
-projects = ['packages/demo1', 'packages/demo2', '.']
+def build_projects(projects) {
+    projects.each{
+        project ->
+        // Check is files in given directory changed between commits
+        // NOTE: $GIT_PREVIOUS_COMMIT and $GIT_COMMIT provided by Jenkins GIT Plugin
+        changed = sh(
+            returnStdout: true,
+            script: "git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT} ${project}"
+        ).trim()
 
+        if (changed) {
+            build(${project})
+        }
+
+
+    }
+}
 pipeline {
     agent any
     stages {
@@ -16,20 +33,7 @@ pipeline {
 
         // BUILD
         stage('BUILD') {
-            steps {
-                script {
-                    projects.each {
-                        project ->
-                        when {
-                            changeset "${project}/*.*"
-                        }
-                        steps {
-                            echo "Building ${project}..."
-                            build(${project})
-                        }
-                    }
-                }
-            }
+            build_projects(projects)
         }
     }
 }
