@@ -16,7 +16,7 @@ def build_projects(projects) {
             script: "git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT} ${project}"
         ).trim()
 
-        if (changed_project.equalsIgnoreCase("")) {
+        if (!changed_project.equalsIgnoreCase("")) {
             echo "Project: ${project} will be built"
         }
     }
