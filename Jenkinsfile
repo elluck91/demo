@@ -28,12 +28,15 @@ def test_images(images) {
     images.each {
         image ->
         sh "docker run --rm ${image} npm test"
+        tested_images.add(image)
     }
 }
 
 def deploy_images(images) {
     images.each {
         image ->
+        echo "IMAGE ${image} was tested and is ready for deployment"
+        /*
         sh "kubectl create namespace ${image}"
         sh "kubectl run ${image}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${image}"
         sh "kubectl expose deployment ${image}-deployment --type=LoadBalancer"
@@ -42,6 +45,7 @@ def deploy_images(images) {
             script: "minikube service ${image}-deployment -n ${image}"
         ).trim()
         echo "Access the deployment at: ${url}"
+        */
     }
 }
 
@@ -69,8 +73,7 @@ pipeline {
 
         stage('DEPLOY') {
             steps {
-                echo "DEPLOYING"
-                //deploy_images(tested_images)
+                deploy_images(tested_images)
             }
         }
     }
