@@ -15,9 +15,12 @@ def build_projects(projects) {
             script: "git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT} ${project}"
         ).trim()
 
+        echo "$changed"
+        /*
         if (changed) {
             build(${project})
         }
+        */
     }
 }
 
