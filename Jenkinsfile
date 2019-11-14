@@ -38,10 +38,12 @@ def test_images(images) {
 def deploy_images(images) {
     images.each {
         image ->
-        sh "eval \$(minikube docker-env)"
-        sh "kubectl create namespace ${GIT_BRANCH}"
-        sh "kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}"
-        sh "kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}"
+        sh """
+        eval \$(minikube docker-env)
+        kubectl create namespace ${GIT_BRANCH}
+        kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}
+        kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}
+        """
         url = sh(
             returnStdout: true,
             script: "minikube service ${GIT_BRANCH}-deployment -n ${GIT_BRANCH}"
