@@ -1,7 +1,7 @@
-projects = ['./packages/demo1', './packages/demo2', '.']
+projects = ['./packages/demo1', './packages/demo2']
 
 def build(String project) {
-    //sh "docker build -t ${project}:latest ${project}"
+    sh "docker build -t ${project}:latest ${project}"
     echo "docker image ${project} has complete building..."
 }
 
@@ -15,7 +15,7 @@ def build_projects(projects) {
             script: "git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT} ${project}"
         ).trim()
         
-        // If changed_in_project is NOT empty, build that project
+        // If changes_in_project is NOT empty, build that project
         if (!changes_in_project.equalsIgnoreCase("")) {
             build(project)
         }
@@ -36,6 +36,10 @@ pipeline {
             steps {
                 build_projects(projects)
             }
+        }
+
+        stage('DEPLOY') {
+            echo "\n\nDEPLOYING\n\n"
         }
     }
 }
