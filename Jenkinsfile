@@ -1,4 +1,4 @@
-projects = ['packages/demo1', 'packages/demo2']
+changed_projects = ['packages/demo1', 'packages/demo2']
 built_images = []
 
 def build(String project) {
@@ -24,10 +24,24 @@ def build_projects(projects) {
     }
 }
 
+def test_images(images) {
+    images.each {
+        image ->
+        sh "docker run --rm ${image} mocha"
+    }
+}
+
 def deploy_images(images) {
     images.each {
         image ->
-        echo "Image ${image} will be deployed..."
+        sh "kubectl create namespace ${image}"
+        sh "kubectl run ${image}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${image}"
+        sh "kubectl expose deployment ${image}-deployment --type=LoadBalancer"
+        url = sh(
+            returnStdout: true,
+            script: "minikube service ${image}-deployment -n ${image}"
+        ).trim()
+        echo "Access the deployment at: ${url}"
     }
 }
 
@@ -43,13 +57,20 @@ pipeline {
         // BUILD
         stage('BUILD') {
             steps {
-                build_projects(projects)
+                build_projects(changed_projects)
+            }
+        }
+
+        stage('TEST') {
+            steps {
+                test_images(built_images)
             }
         }
 
         stage('DEPLOY') {
             steps {
-                deploy_images(built_images)
+                echo "DEPLOYING"
+                //deploy_images(tested_images)
             }
         }
     }
