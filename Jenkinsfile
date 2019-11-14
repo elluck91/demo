@@ -24,6 +24,13 @@ def build_projects(projects) {
     }
 }
 
+def deploy_images(images) {
+    images.each {
+        image ->
+        echo "Image ${image} will be deployed..."
+    }
+}
+
 pipeline {
     agent any
     stages {
@@ -42,10 +49,7 @@ pipeline {
 
         stage('DEPLOY') {
             steps {
-                built_images.each {
-                    image ->
-                    echo "Image ${image} will be deployed..."
-                }
+                deploy_images(built_images)
             }
         }
     }
