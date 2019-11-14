@@ -3,6 +3,7 @@ built_images = []
 tested_images = []
 
 def build(String project) {
+    sh "eval $(minikube docker-env)"
     sh "docker build -t ${project}:latest ${project}"
     echo "docker image ${project} has complete building..."
     built_images.add(project)
