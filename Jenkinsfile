@@ -6,6 +6,7 @@ def build(String project) {
 }
 
 def build_projects(projects) {
+    echo "\n\nBuilding PROJECT:\n\n"
     projects.each{
         project ->
         // Check is files in given directory changed between commits
@@ -15,9 +16,7 @@ def build_projects(projects) {
             script: "git diff --name-only ${GIT_PREVIOUS_COMMIT} ${GIT_COMMIT} ${project}"
         ).trim()
 
-        if (changed_project.equalsIgnoreCase(project)) {
-            echo "${project} needs to be build..."
-        }
+        echo "${project} hahahha"
     }
 }
 
