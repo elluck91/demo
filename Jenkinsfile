@@ -27,7 +27,7 @@ def build_projects(projects) {
 def test_images(images) {
     images.each {
         image ->
-        sh "docker run --rm ${image} mocha"
+        sh "docker run --rm ${image} npm test"
     }
 }
 
