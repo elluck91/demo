@@ -1,8 +1,10 @@
 projects = ['packages/demo1', 'packages/demo2']
+built_images = []
 
 def build(String project) {
     sh "docker build -t ${project}:latest ${project}"
     echo "docker image ${project} has complete building..."
+    built_images.add(project)
 }
 
 def build_projects(projects) {
@@ -40,7 +42,10 @@ pipeline {
 
         stage('DEPLOY') {
             steps {
-                echo "\n\nDEPLOYING\n\n"
+                built_images.each {
+                    image ->
+                    echo "Image ${image} will be deployed..."
+                }
             }
         }
     }
