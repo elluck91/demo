@@ -4,8 +4,8 @@ tested_images = []
 
 def build(String project) {
     sh "eval \$(minikube docker-env)"
-    echo "docker images"
     sh "docker build -t ${project}-${GIT_BRANCH}:latest ${project}"
+    echo "docker images"
     built_images.add(project + "-" + GIT_BRANCH)
 }
 
@@ -48,7 +48,7 @@ def deploy_images(images) {
 }
 
 pipeline {
-    agent any
+    agent 'docker'
     stages {
         stage('checkout'){
             steps{
