@@ -14,7 +14,7 @@ describe("DEMO_1 Server", function() {
 
     it("returns DEMO_1", function(done) {
       request.get(base_url, function(error, response, body) {
-        assert.equal("DEMO_1", body);
+        assert.equal("DEMO_1 on branch silly", body);
         demo1.closeServer();
         done();
       });
