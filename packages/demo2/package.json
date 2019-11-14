@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jenkins-mocha",
     "start": "node server.js"
   },
   "keywords": [],
@@ -13,7 +13,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "http": "0.0.0",
-    "mocha": "^6.2.2",
+    "jenkins-mocha": "^8.0.0",
     "request": "^2.88.0"
   }
 }
