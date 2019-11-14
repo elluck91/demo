@@ -18,10 +18,9 @@ def build_projects(projects) {
         if (changed) {
             build(${project})
         }
-
-
     }
 }
+
 pipeline {
     agent any
     stages {
@@ -33,7 +32,9 @@ pipeline {
 
         // BUILD
         stage('BUILD') {
-            build_projects(projects)
+            steps {
+                build_projects(${projects})
+            }
         }
     }
 }
