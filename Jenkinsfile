@@ -36,6 +36,7 @@ def test_images(images) {
 def deploy_images(images) {
     images.each {
         image ->
+        sh "eval \$(minikube docker-env)"
         sh "kubectl create namespace ${GIT_BRANCH}"
         sh "kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}"
         sh "kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}"
@@ -48,7 +49,7 @@ def deploy_images(images) {
 }
 
 pipeline {
-    agent 'docker'
+    agent any
     stages {
         stage('checkout'){
             steps{
