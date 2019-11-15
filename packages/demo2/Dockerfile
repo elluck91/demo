@@ -1,5 +1,5 @@
 FROM builder
-EXPOSE 9002
+EXPOSE 9001
 COPY package.json package-lock.json /usr/src/app/
 WORKDIR /usr/src/app
 RUN npm install
