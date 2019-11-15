@@ -44,7 +44,7 @@ def deploy_images(images) {
         sh """
             eval \$(minikube docker-env)
             kubectl create namespace ${GIT_BRANCH}
-            kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}
+            kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9002 --image-pull-policy=Never -n ${GIT_BRANCH}
             kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}
         """
         url = sh(
@@ -52,6 +52,7 @@ def deploy_images(images) {
             script: "minikube service ${GIT_BRANCH}-deployment -n ${GIT_BRANCH}"
         ).trim()
         echo "Access the deployment at: ${url}"
+        sh "kubectl delete namespace ${GIT_BRANCH}"
     }
 }
 
