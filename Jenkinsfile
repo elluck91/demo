@@ -49,7 +49,7 @@ def deploy_images(images) {
         """
         url = sh(
             returnStdout: true,
-            script: "minikube service ${GIT_BRANCH}-deployment -n ${GIT_BRANCH}"
+            script: "minikube service ${GIT_BRANCH}-deployment -n ${GIT_BRANCH} --url"
         ).trim()
         echo "Access the deployment at: ${url}"
     }

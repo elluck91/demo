@@ -1,7 +1,7 @@
 var request = require("request"),
   assert = require('assert'),
   demo1 = require("../server.js"),
-  base_url = "http://localhost:9002/";
+  base_url = "http://localhost:9001/";
 
 describe("DEMO_2 Server", function () {
   describe("GET /", function () {
