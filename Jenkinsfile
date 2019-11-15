@@ -44,7 +44,7 @@ def deploy_images(images) {
         sh """
             eval \$(minikube docker-env)
             kubectl create namespace ${GIT_BRANCH}
-            kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9002 --image-pull-policy=Never -n ${GIT_BRANCH}
+            kubectl run ${GIT_BRANCH}-deployment --image=${image} --port=9001 --image-pull-policy=Never -n ${GIT_BRANCH}
             kubectl expose deployment ${GIT_BRANCH}-deployment --type=LoadBalancer -n ${GIT_BRANCH}
         """
         url = sh(
