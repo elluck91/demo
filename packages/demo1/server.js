@@ -3,14 +3,14 @@ var app = express();
 var exports = module.exports = {};
 const PORT = 9001;
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.send('DEMO_1 on branch master');
 });
 
-var server = app.listen(PORT, function(){
-  console.log(`Magic is happening on port ${PORT}`);
+var server = app.listen(PORT, function () {
+  console.log(` Magic is happening on port ${PORT}`);
 });
 
-exports.closeServer = function(){
+exports.closeServer = function () {
   server.close();
 };
